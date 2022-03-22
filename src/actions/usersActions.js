@@ -16,7 +16,7 @@ export const getAll = () => async (dispatch) => {
         console.log('Error: ' + error.message);
         dispatch({
             type: ERROR,
-            payload: error.message,
+            payload: 'Somethig was wrong, please try again later',
         })
     }
 };

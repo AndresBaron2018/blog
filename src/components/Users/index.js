@@ -1,13 +1,17 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import Spinner from '../General/Spinner';
+import Fatal from '../General/Fatal';
+import Table from './Table';
 
 import * as usersActions from '../../actions/usersActions';
 
 class Users extends Component {
   
   async componentDidMount() {
-      this.props.getAll();
+      if(!this.props.users.length) {
+        this.props.getAll();
+      }
     }
 
     putContent = () => {
@@ -16,37 +20,20 @@ class Users extends Component {
             <Spinner />
           );
       }
-      return (
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Link</th>
-            </tr>
-          </thead>
-          <tbody>
-            { this.putRows() }
-          </tbody>
-        </table>
-      );
+
+      if (this.props.error) {
+        return <Fatal message={ this.props.error } />;
+      }
+
+      return <Table />;
     }
 
-  putRows = () => (
-    this.props.users.map((user) => (
-      <div className="row">
-        <tr key={user.id}>
-          <td>{user.name}</td>
-          <td>{user.email}</td>
-          <td>{user.website}</td>
-        </tr>
-    </div>
-    ))
-    )
+ 
     render () {
       return (
         <div>
-          { this.putContent()}
+          <h1>Users</h1>
+          { this.putContent() }
         </div>
     );
   }

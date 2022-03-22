@@ -1,26 +1,27 @@
-import { GET_ALL, LOADING, ERROR } from '../types/usersTypes';
+import { GET_ALL, LOADING, ERROR } from '../types/publicationsType';
 
 const INITIAL_STATE = {
-    users: [],
+    publications: [],
     loading: false,
     error: '',
-}
+};
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case GET_ALL:
-            return { ...state, 
-                users: action.payload,
+            return { 
+                ...state, 
+                publications: action.payload,
                 loading: false,
                 error: ''
             };
-
+        
         case  LOADING:
             return { ...state, loading: true };
 
         case ERROR: 
             return { ...state, error: action.payload, loading: false };
             
-            default: return state;
+        default: return state;
     }
 }
